@@ -17,7 +17,6 @@ const IssueList = (props) => {
     getStorage();
   }, []);
 
-  console.log("registerData", registerData);
   return (
     <div className="RepoList">
       {registerData &&

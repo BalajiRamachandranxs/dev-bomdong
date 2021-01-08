@@ -1,14 +1,69 @@
-.Main {
-  header {
-    font-size: 50px;
-    font-weight: bold;
-    margin: 30px 0;
-  }
+@import "../styles/common.scss";
 
-  main {
-    display: flex;
-    .RepoList {
+body {
+  margin: 0px;
+  padding: 0px;
+
+  .Main {
+    header {
+      padding: 15px 20px;
+      background-color: var(--main-darkgray);
+      color: white;
+      font-size: 50px;
+      font-weight: bold;
+    }
+
+    .main_body {
       display: flex;
+      padding-left: 30px;
+
+      .repo_all {
+        min-width: 350px;
+        margin-right: 30px;
+
+        &_header {
+          padding-bottom: 10px;
+          font-weight: 600;
+        }
+
+        &_input {
+          width: 100%;
+          border: none;
+          border-bottom: 2px solid lightgray;
+          font-size: 18px;
+        }
+
+        ul {
+          list-style: none;
+          padding-left: 0px;
+
+          li {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 18px;
+
+            button {
+              margin-left: 10px;
+              padding: 5px;
+              border: none;
+              background-color: var(--main-lightgray);
+              cursor: pointer;
+            }
+          }
+        }
+      }
+
+      .repo_register {
+        width: 100%;
+        padding-left: 30px;
+        background-color: var(--main-lightgray);
+
+        &_header {
+          font-weight: 600;
+          padding-bottom: 10px;
+        }
+      }
     }
   }
 }
