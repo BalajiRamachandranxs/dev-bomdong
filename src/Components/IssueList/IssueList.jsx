@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from "react";
-
+import "./IssueList.scss";
 const IssueList = (props) => {
-  const [registerData, setRegisterData] = useState([]);
-
+  const [issueData, setIssueData] = useState([]);
   const getStorage = () => {
-    if (typeof Storage !== "undefined") {
-      const data = JSON.parse(localStorage.getItem("allEntries"));
-      const oneData = data.reduce((first, second) => {
-        return first.concat(second);
-      }, []);
-      setRegisterData(oneData);
+    if (localStorage.getItem("data")) {
+      const data = JSON.parse(localStorage.getItem("data"));
+      // const oneData = data.reduce((firstData, secondData) => {
+      //   return firstData.concat(secondData);
+      // }, []);
+      setIssueData(data);
     }
   };
 
@@ -17,16 +16,25 @@ const IssueList = (props) => {
     getStorage();
   }, []);
 
+  console.log("issueData", issueData);
+
   return (
-    <div className="RepoList">
-      {registerData &&
-        registerData.map((data) => {
+    <div className="IssueList">
+      {!issueData.length ? (
+        <div>등록된 Repository가 없습니다</div>
+      ) : (
+        issueData.map((data) => {
           return (
-            <ul>
-              <li>{data.name}</li>
-            </ul>
+            data && (
+              <ul className="repo_list">
+                <li>{data.title}</li>
+                <li>{data.body}</li>
+                <li>{data.url}</li>
+              </ul>
+            )
           );
-        })}
+        })
+      )}
     </div>
   );
 };

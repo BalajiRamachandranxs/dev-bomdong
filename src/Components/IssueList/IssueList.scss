@@ -1,1 +1,7 @@
-//
+@import "../../styles/common.scss";
+
+.IssueList {
+  .repo_list {
+    @include ulReset;
+  }
+}

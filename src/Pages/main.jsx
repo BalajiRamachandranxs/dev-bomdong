@@ -1,11 +1,13 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import IssueList from "../Components/IssueList/IssueList.jsx";
-import { handleFetch } from "../utills/index";
+import { handleFetch, REPO_URL, ISSUE_URL } from "../utills/index";
 import "./Main.scss";
 
 const Main = () => {
   const [repoData, setRepoData] = useState([]);
   const [inputData, setInputData] = useState([]);
+  const [registerData, setRegisterData] = useState([]);
+  let dataArr = [];
   const searchData = repoData.filter((data) => data.name.toLowerCase().includes(inputData));
 
   const updateRepoData = (data) => {
@@ -13,24 +15,46 @@ const Main = () => {
   };
 
   const saveInputData = (e) => {
-    const inputValue = e.target.value;
-    setInputData(inputValue);
+    const input_value = e.target.value;
+    setInputData(input_value);
   };
 
-  const registerRepo = (e) => {
-    let existingData = JSON.parse(localStorage.getItem("allEntries"));
-    if (existingData == null) existingData = [];
+  const updateIssueData = (data) => {
+    let existingData = JSON.parse(localStorage.getItem("data"));
+    if (existingData == null) {
+      existingData = [];
+    }
 
-    let entry = repoData.filter((data) => data.name.includes(e.target.name));
-    localStorage.setItem("entry", JSON.stringify(entry));
-    existingData.push(entry);
-    localStorage.setItem("allEntries", JSON.stringify(existingData));
-    window.location.replace("/main");
-    alert("Repository 등록이 완료되었습니다.");
+    if (existingData && existingData.length < 4) {
+      existingData.push(data[0]);
+      localStorage.setItem("data", JSON.stringify(existingData));
+      alert("Repository 등록이 완료되었습니다.");
+      window.location.replace("/main");
+    } else {
+      return alert("Repository 등록은 4개까지만 가능합니다.");
+    }
+  };
+
+  const registerIssue = (e) => {
+    const repo_name = e.target.name;
+    const URL = `${ISSUE_URL}/${repo_name}/issues`;
+    handleFetch(URL, updateIssueData);
+
+    // localStorage.setItem("entry", JSON.stringify(issueData));
+    // existingData.push(issueData);
+
+    // if (dataArr.length < 4) {
+    //   dataArr.push(data[0]);
+    //   setIssueData(issueData);
+    //   localStorage.setItem("data", JSON.stringify(issueData));
+    //   return alert("Repository 등록이 완료되었습니다.");
+    // } else {
+    //   return alert("Repository 등록은 4개까지만 가능합니다.");
+    // }
   };
 
   useEffect(() => {
-    handleFetch(updateRepoData);
+    handleFetch(REPO_URL, updateRepoData);
   }, []);
 
   return (
@@ -45,7 +69,7 @@ const Main = () => {
             {searchData.map((data) => (
               <li>
                 {data.name}
-                <button name={data.name} onClick={registerRepo}>
+                <button name={data.name} onClick={registerIssue}>
                   등록
                 </button>
               </li>
@@ -54,8 +78,8 @@ const Main = () => {
         </section>
 
         <section className="repo_register">
-          <h1 className="repo_register_header">등록한 Repository Issue 모아보기</h1>
-          <IssueList />
+          <h1 className="repo_register_header">등록한 Repository</h1>
+          <IssueList registerData={registerData} />
         </section>
       </div>
     </div>
