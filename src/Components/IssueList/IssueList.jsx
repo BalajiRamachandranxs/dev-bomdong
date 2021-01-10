@@ -16,8 +16,6 @@ const IssueList = (props) => {
     getStorage();
   }, []);
 
-  console.log("issueData", issueData);
-
   return (
     <div className="IssueList">
       {!issueData.length ? (

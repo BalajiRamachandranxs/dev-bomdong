@@ -6,9 +6,7 @@ import "./Main.scss";
 const Main = () => {
   const [repoData, setRepoData] = useState([]);
   const [inputData, setInputData] = useState([]);
-  const [registerData, setRegisterData] = useState([]);
-  let dataArr = [];
-  const searchData = repoData.filter((data) => data.name.toLowerCase().includes(inputData));
+  const searchData = repoData.filter((data) => data.name.includes(inputData));
 
   const updateRepoData = (data) => {
     setRepoData(data);
@@ -39,18 +37,6 @@ const Main = () => {
     const repo_name = e.target.name;
     const URL = `${ISSUE_URL}/${repo_name}/issues`;
     handleFetch(URL, updateIssueData);
-
-    // localStorage.setItem("entry", JSON.stringify(issueData));
-    // existingData.push(issueData);
-
-    // if (dataArr.length < 4) {
-    //   dataArr.push(data[0]);
-    //   setIssueData(issueData);
-    //   localStorage.setItem("data", JSON.stringify(issueData));
-    //   return alert("Repository 등록이 완료되었습니다.");
-    // } else {
-    //   return alert("Repository 등록은 4개까지만 가능합니다.");
-    // }
   };
 
   useEffect(() => {
@@ -79,7 +65,7 @@ const Main = () => {
 
         <section className="repo_register">
           <h1 className="repo_register_header">등록한 Repository</h1>
-          <IssueList registerData={registerData} />
+          <IssueList />
         </section>
       </div>
     </div>
