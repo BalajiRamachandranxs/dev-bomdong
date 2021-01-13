@@ -14,7 +14,7 @@ const IssueList = (props) => {
 
   useEffect(() => {
     getStorage();
-  }, []);
+  }, [issueData]);
 
   return (
     <div className="IssueList">
@@ -22,14 +22,20 @@ const IssueList = (props) => {
         <div>등록된 Repository가 없습니다</div>
       ) : (
         issueData.map((data) => {
-          return (
-            data && (
+          return data ? (
+            <div>
+              <button>삭제하기</button>
               <ul className="repo_list">
                 <li>{data.title}</li>
                 <li>{data.body}</li>
                 <li>{data.url}</li>
               </ul>
-            )
+            </div>
+          ) : (
+            <div>
+              <button>삭제하기</button>
+              <div>저장된 Issue가 없습니다.</div>
+            </div>
           );
         })
       )}

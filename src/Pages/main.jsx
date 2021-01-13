@@ -27,7 +27,6 @@ const Main = () => {
       existingData.push(data[0]);
       localStorage.setItem("data", JSON.stringify(existingData));
       alert("Repository 등록이 완료되었습니다.");
-      window.location.replace("/main");
     } else {
       return alert("Repository 등록은 4개까지만 가능합니다.");
     }
