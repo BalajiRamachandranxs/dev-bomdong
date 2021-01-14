@@ -1,44 +1,61 @@
 import React, { useEffect, useState } from "react";
 import "./IssueList.scss";
+
 const IssueList = (props) => {
   const [issueData, setIssueData] = useState([]);
+  const [repoName, setRepoName] = useState([]);
+
   const getStorage = () => {
     if (localStorage.getItem("data")) {
       const data = JSON.parse(localStorage.getItem("data"));
-      // const oneData = data.reduce((firstData, secondData) => {
-      //   return firstData.concat(secondData);
-      // }, []);
       setIssueData(data);
+    }
+  };
+
+  const getRepoName = () => {
+    if (localStorage.getItem("name")) {
+      const data = JSON.parse(localStorage.getItem("name"));
+      setRepoName(data);
     }
   };
 
   useEffect(() => {
     getStorage();
-  }, [issueData]);
+  }, []);
+
+  useEffect(() => {
+    getRepoName();
+  }, []);
 
   return (
     <div className="IssueList">
-      {!issueData.length ? (
-        <div>등록된 Repository가 없습니다</div>
-      ) : (
-        issueData.map((data) => {
-          return data ? (
-            <div>
-              <button>삭제하기</button>
-              <ul className="repo_list">
-                <li>{data.title}</li>
-                <li>{data.body}</li>
-                <li>{data.url}</li>
-              </ul>
-            </div>
-          ) : (
-            <div>
-              <button>삭제하기</button>
-              <div>저장된 Issue가 없습니다.</div>
+      <div className="repo_list">
+        {repoName.map((repo) => {
+          return (
+            <div className="repo_name_box">
+              <button className="repo_name_btn">X</button>
+              <p className="repo_name">{repo}</p>
             </div>
           );
-        })
-      )}
+        })}
+      </div>
+
+      <div>
+        {!issueData.length ? (
+          <p>등록된 Repository가 없습니다</p>
+        ) : (
+          issueData.map((data) => {
+            return data ? (
+              <div className="issue_list">
+                <p>{data.title}</p>
+                {/* <li>{data.url}</li> */}
+              </div>
+            ) : (
+              <p className="issue_none">저장된 Issue가 없습니다.</p>
+            );
+          })
+        )}
+      </div>
     </div>
   );
 };
