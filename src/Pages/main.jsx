@@ -6,8 +6,8 @@ import "./Main.scss";
 const Main = () => {
   const [repoData, setRepoData] = useState([]);
   const [inputData, setInputData] = useState([]);
-  const [issueData, setIssueData] = useState([]);
-  const repo_name = [];
+  let existingName = JSON.parse(localStorage.getItem("name"));
+
   const search_data = repoData.filter((data) => data.name.includes(inputData));
 
   const updateRepoData = (data) => {
@@ -25,33 +25,36 @@ const Main = () => {
       existingData = [];
     }
 
-    if (existingData && existingData.length < 4) {
-      existingData.push(data[0]);
+    if (existingData && existingName.length < 4) {
+      for (let i = 0; i < data.length; i++) {
+        existingData.push(data[i]);
+      }
       localStorage.setItem("data", JSON.stringify(existingData));
-      alert("Repository 등록이 완료되었습니다.");
-      window.location.replace("/");
-    } else {
-      return alert("Repository 등록은 4개까지만 가능합니다.");
     }
+    window.location.replace("/");
   };
 
+  console.log(existingName);
+
   const saveRepoName = (e) => {
-    let existingName = JSON.parse(localStorage.getItem("name"));
     if (existingName == null) {
       existingName = [];
     }
 
     if (existingName && existingName.length < 4) {
       existingName.push(e.target.name);
+      alert("Repository 등록이 완료되었습니다.");
       localStorage.setItem("name", JSON.stringify(existingName));
+    } else if (existingName.length >= 4) {
+      alert("Repository는 4개까지 등록이 가능합니다.");
     }
   };
 
   const registerIssue = (e) => {
     const repo_name = e.target.name;
     const URL = `${ISSUE_URL}/${repo_name}/issues`;
-    handleFetch(URL, updateIssueData);
     saveRepoName(e);
+    handleFetch(URL, updateIssueData);
   };
 
   useEffect(() => {

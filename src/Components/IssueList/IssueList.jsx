@@ -27,6 +27,8 @@ const IssueList = (props) => {
     getRepoName();
   }, []);
 
+  console.log(issueData);
+
   return (
     <div className="IssueList">
       <div className="repo_list">
@@ -45,13 +47,15 @@ const IssueList = (props) => {
           <p>등록된 Repository가 없습니다</p>
         ) : (
           issueData.map((data) => {
-            return data ? (
-              <div className="issue_list">
-                <p>{data.title}</p>
-                {/* <li>{data.url}</li> */}
-              </div>
-            ) : (
-              <p className="issue_none">저장된 Issue가 없습니다.</p>
+            return (
+              data && (
+                <div className="issue_list">
+                  <span>{data.repository_url.split("/").reverse()[0]}</span>
+                  <span>{data.title}</span>
+
+                  {/* <li>{data.url}</li> */}
+                </div>
+              )
             );
           })
         )}
