@@ -41,6 +41,11 @@ const Main = () => {
       existingName = [];
     }
 
+    // for (let i=0; i<existingName.length; i++){
+    // if (existingName.includes(e.target.name)) {
+    //   return alert("동일한 Repository는 등록이 불가합니다.");
+    // }
+
     if (existingName && existingName.length < 4) {
       existingName.push(e.target.name);
       alert("Repository 등록이 완료되었습니다.");
@@ -53,6 +58,10 @@ const Main = () => {
   const registerIssue = (e) => {
     const repo_name = e.target.name;
     const URL = `${ISSUE_URL}/${repo_name}/issues`;
+
+    if (existingName && existingName.includes(e.target.name)) {
+      return alert("동일한 Repository는 등록이 불가합니다.");
+    }
     saveRepoName(e);
     handleFetch(URL, updateIssueData);
   };
