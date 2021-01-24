@@ -34,17 +34,10 @@ const Main = () => {
     window.location.replace("/");
   };
 
-  console.log(existingName);
-
   const saveRepoName = (e) => {
     if (existingName == null) {
       existingName = [];
     }
-
-    // for (let i=0; i<existingName.length; i++){
-    // if (existingName.includes(e.target.name)) {
-    //   return alert("동일한 Repository는 등록이 불가합니다.");
-    // }
 
     if (existingName && existingName.length < 4) {
       existingName.push(e.target.name);

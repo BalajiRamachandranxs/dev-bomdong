@@ -27,8 +27,6 @@ const IssueList = (props) => {
     getRepoName();
   }, []);
 
-  console.log(issueData);
-
   return (
     <div className="IssueList">
       <div className="repo_list">
