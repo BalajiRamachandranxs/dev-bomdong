@@ -50,8 +50,6 @@ const IssueList = (props) => {
                 <div className="issue_list">
                   <span>{data.repository_url.split("/").reverse()[0]}</span>
                   <span>{data.title}</span>
-
-                  {/* <li>{data.url}</li> */}
                 </div>
               )
             );
