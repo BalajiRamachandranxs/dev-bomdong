@@ -7,8 +7,9 @@ const Main = () => {
   const [repoData, setRepoData] = useState([]);
   const [inputData, setInputData] = useState([]);
   let existingName = JSON.parse(localStorage.getItem("name"));
-
   const search_data = repoData.filter((data) => data.name.includes(inputData));
+  const [issueData, setIssueData] = useState([]);
+  const [repoName, setRepoName] = useState([]);
 
   const updateRepoData = (data) => {
     setRepoData(data);
@@ -59,8 +60,36 @@ const Main = () => {
     handleFetch(URL, updateIssueData);
   };
 
+  const getStorage = () => {
+    if (localStorage.getItem("data")) {
+      const data = JSON.parse(localStorage.getItem("data"));
+      setIssueData(data);
+    }
+  };
+
+  const getRepoName = () => {
+    if (localStorage.getItem("name")) {
+      const data = JSON.parse(localStorage.getItem("name"));
+      setRepoName(data);
+    }
+  };
+
+  const deleteData = (e) => {
+    const newData = repoName.filter((data) => data !== e.target.name);
+    setRepoName(newData);
+    localStorage.setItem("name", JSON.stringify(newData));
+  };
+
   useEffect(() => {
     handleFetch(REPO_URL, updateRepoData);
+  }, []);
+
+  useEffect(() => {
+    getStorage();
+  }, []);
+
+  useEffect(() => {
+    getRepoName();
   }, []);
 
   return (
@@ -85,7 +114,7 @@ const Main = () => {
 
         <section className="repo_register">
           <h1 className="repo_register_header">등록한 Repository</h1>
-          <IssueList />
+          <IssueList repoName={repoName} issueData={issueData} deleteData={deleteData} />
         </section>
       </div>
     </div>
