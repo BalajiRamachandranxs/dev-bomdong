@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./IssueList.scss";
 
 const IssueList = (props) => {
-  const { repoName, issueData, deleteData } = props;
+  const { repoName, issueData, deleteRepo } = props;
 
   return (
     <div className="IssueList">
@@ -14,7 +14,7 @@ const IssueList = (props) => {
             return (
               <ul className="repo_name_box">
                 <li>
-                  <button className="repo_name_btn" name={repo} onClick={deleteData}>
+                  <button className="repo_name_btn" name={repo} onClick={deleteRepo}>
                     X
                   </button>
                   <span>{repo}</span>

@@ -74,10 +74,17 @@ const Main = () => {
     }
   };
 
-  const deleteData = (e) => {
+  const deleteIssue = (e) => {
+    const newData = issueData.filter((data) => e.target.name !== data.repository_url.split("/").reverse()[0]);
+    setIssueData(newData);
+    localStorage.setItem("data", JSON.stringify(newData));
+  };
+
+  const deleteRepo = (e) => {
     const newData = repoName.filter((data) => data !== e.target.name);
     setRepoName(newData);
     localStorage.setItem("name", JSON.stringify(newData));
+    deleteIssue(e);
   };
 
   useEffect(() => {
@@ -114,7 +121,7 @@ const Main = () => {
 
         <section className="repo_register">
           <h1 className="repo_register_header">등록한 Repository</h1>
-          <IssueList repoName={repoName} issueData={issueData} deleteData={deleteData} />
+          <IssueList repoName={repoName} issueData={issueData} deleteRepo={deleteRepo} />
         </section>
       </div>
     </div>
