@@ -23,8 +23,8 @@ body {
         margin-right: 30px;
 
         &_header {
-          padding-bottom: 10px;
           font-weight: 600;
+          color: var(--main-darkgray);
         }
 
         &_input {
@@ -32,23 +32,30 @@ body {
           border: none;
           border-bottom: 2px solid lightgray;
           font-size: 18px;
+
+          :hover {
+            color: var(--main-blue);
+          }
         }
 
-        ul {
-          @include ulReset;
-
-          li {
+        .repo_myrepo {
+          .repo_search {
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
             font-size: 18px;
 
-            button {
+            .repo_search_btn {
               margin-left: 10px;
               padding: 5px;
               border: none;
               background-color: var(--main-lightgray);
               cursor: pointer;
+
+              &:hover {
+                background-color: var(--main-darkgray);
+                color: white;
+              }
             }
           }
         }
@@ -57,11 +64,12 @@ body {
       .repo_register {
         width: 100%;
         padding-left: 50px;
+        padding-right: 50px;
         background-color: var(--main-lightgray);
 
         &_header {
-          font-weight: 600;
-          padding-bottom: 10px;
+          color: var(--main-blue);
+          @include header;
         }
       }
     }

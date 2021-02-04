@@ -5,6 +5,7 @@ style {
 :root {
   --main-darkgray: #252a30;
   --main-lightgray: #f7f8fa;
+  --main-blue: #007fc7;
 }
 
 body * {
@@ -13,7 +14,24 @@ body * {
   font-weight: 500;
 }
 
-@mixin ulReset {
+ul {
   list-style: none;
   padding-left: 0px;
+}
+
+p {
+  margin: 0;
+}
+
+@mixin header {
+  font-weight: 500;
+  color: var(--main-darkgray);
+}
+
+@mixin contentsBox {
+  width: 100%;
+  padding-left: 10px;
+  background-color: white;
+  border: 1px solid #d6d6d6;
+  border-radius: 10px;
 }

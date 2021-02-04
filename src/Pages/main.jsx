@@ -7,20 +7,20 @@ const Main = () => {
   const [repoData, setRepoData] = useState([]);
   const [inputData, setInputData] = useState([]);
   let existingName = JSON.parse(localStorage.getItem("name"));
-  const search_data = repoData.filter((data) => data.name.includes(inputData));
+  const search_data = repoData.filter(data => data.name.includes(inputData));
   const [issueData, setIssueData] = useState([]);
   const [repoName, setRepoName] = useState([]);
 
-  const updateRepoData = (data) => {
+  const updateRepoData = data => {
     setRepoData(data);
   };
 
-  const saveInputData = (e) => {
+  const saveInputData = e => {
     const input_value = e.target.value;
     setInputData(input_value);
   };
 
-  const updateIssueData = (data) => {
+  const updateIssueData = data => {
     let existingData = JSON.parse(localStorage.getItem("data"));
     if (existingData == null) {
       existingData = [];
@@ -31,11 +31,12 @@ const Main = () => {
         existingData.push(data[i]);
       }
       localStorage.setItem("data", JSON.stringify(existingData));
+      window.location.replace("/");
     }
-    window.location.replace("/");
+    // window.location.replace("/");
   };
 
-  const saveRepoName = (e) => {
+  const saveRepoName = e => {
     if (existingName == null) {
       existingName = [];
     }
@@ -49,7 +50,7 @@ const Main = () => {
     }
   };
 
-  const registerIssue = (e) => {
+  const registerIssue = e => {
     const repo_name = e.target.name;
     const URL = `${ISSUE_URL}/${repo_name}/issues`;
 
@@ -74,14 +75,16 @@ const Main = () => {
     }
   };
 
-  const deleteIssue = (e) => {
-    const newData = issueData.filter((data) => e.target.name !== data.repository_url.split("/").reverse()[0]);
+  const deleteIssue = e => {
+    const newData = issueData.filter(
+      data => e.target.name !== data.repository_url.split("/").reverse()[0]
+    );
     setIssueData(newData);
     localStorage.setItem("data", JSON.stringify(newData));
   };
 
-  const deleteRepo = (e) => {
-    const newData = repoName.filter((data) => data !== e.target.name);
+  const deleteRepo = e => {
+    const newData = repoName.filter(data => data !== e.target.name);
     setRepoName(newData);
     localStorage.setItem("name", JSON.stringify(newData));
     deleteIssue(e);
@@ -106,12 +109,20 @@ const Main = () => {
       <div className="main_body">
         <section className="repo_all">
           <h1 className="repo_all_header">나의 Repository</h1>
-          <input className="repo_all_input" placeholder="Repository 검색하기" onChange={saveInputData} />
-          <ul>
-            {search_data.map((data) => (
-              <li>
+          <input
+            className="repo_all_input"
+            placeholder="Repository 검색하기"
+            onChange={saveInputData}
+          />
+          <ul className="repo_myrepo">
+            {search_data.map(data => (
+              <li className="repo_search">
                 {data.name}
-                <button name={data.name} onClick={registerIssue}>
+                <button
+                  className="repo_search_btn"
+                  name={data.name}
+                  onClick={registerIssue}
+                >
                   등록
                 </button>
               </li>
@@ -121,7 +132,11 @@ const Main = () => {
 
         <section className="repo_register">
           <h1 className="repo_register_header">등록한 Repository</h1>
-          <IssueList repoName={repoName} issueData={issueData} deleteRepo={deleteRepo} />
+          <IssueList
+            repoName={repoName}
+            issueData={issueData}
+            deleteRepo={deleteRepo}
+          />
         </section>
       </div>
     </div>
