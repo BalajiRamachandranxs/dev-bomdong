@@ -3,6 +3,7 @@
 body {
   margin: 0px;
   padding: 0px;
+  height: 100vh;
 
   .Main {
     header {
@@ -14,8 +15,8 @@ body {
     }
 
     .main_body {
-      height: 100vh;
       display: flex;
+      height: 100vh;
       padding-left: 30px;
 
       .repo_all {
@@ -29,34 +30,13 @@ body {
 
         &_input {
           width: 100%;
+          margin-bottom: 10px;
           border: none;
           border-bottom: 2px solid lightgray;
           font-size: 18px;
 
           :hover {
             color: var(--main-blue);
-          }
-        }
-
-        .repo_myrepo {
-          .repo_search {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-            font-size: 18px;
-
-            .repo_search_btn {
-              margin-left: 10px;
-              padding: 5px;
-              border: none;
-              background-color: var(--main-lightgray);
-              cursor: pointer;
-
-              &:hover {
-                background-color: var(--main-darkgray);
-                color: white;
-              }
-            }
           }
         }
       }

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import IssueList from "../Components/IssueList/IssueList.jsx";
+import RepoList from "../Components/RepoList.jsx/RepoList.jsx";
 import { handleFetch, REPO_URL, ISSUE_URL } from "../utills/index";
 import "./Main.scss";
 
@@ -7,7 +8,7 @@ const Main = () => {
   const [repoData, setRepoData] = useState([]);
   const [inputData, setInputData] = useState([]);
   let existingName = JSON.parse(localStorage.getItem("name"));
-  const search_data = repoData.filter(data => data.name.includes(inputData));
+  const searchData = repoData.filter(data => data.name.includes(inputData));
   const [issueData, setIssueData] = useState([]);
   const [repoName, setRepoName] = useState([]);
 
@@ -114,20 +115,7 @@ const Main = () => {
             placeholder="Repository 검색하기"
             onChange={saveInputData}
           />
-          <ul className="repo_myrepo">
-            {search_data.map(data => (
-              <li className="repo_search">
-                {data.name}
-                <button
-                  className="repo_search_btn"
-                  name={data.name}
-                  onClick={registerIssue}
-                >
-                  등록
-                </button>
-              </li>
-            ))}
-          </ul>
+          <RepoList searchData={searchData} registerIssue={registerIssue} />
         </section>
 
         <section className="repo_register">
