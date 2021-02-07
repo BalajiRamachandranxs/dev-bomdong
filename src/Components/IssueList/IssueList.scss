@@ -54,29 +54,35 @@
 
       .issue_none {
         margin: auto 0;
-        padding: 15px 0;
+        padding: 20px 0;
         font-size: 16px;
       }
 
-      .issue_list {
-        display: flex;
-        margin-bottom: 30px;
-        align-items: center;
+      .issue_add {
+        .issue_list {
+          height: 30vh;
 
-        .issue_repo {
-          margin-right: 5px;
-          padding: 2px 5px;
-          font-size: 12px;
-          font-weight: bold;
-          color: var(--main-blue);
-        }
+          .issue {
+            display: flex;
+            margin-bottom: 30px;
+            align-items: center;
 
-        .issue_title {
-          font-size: 17px;
-          cursor: pointer;
+            .issue_repo {
+              margin-right: 5px;
+              padding: 2px 5px;
+              font-size: 15px;
+              font-weight: bold;
+              color: var(--main-blue);
+            }
 
-          &:hover {
-            font-weight: bold;
+            .issue_title {
+              font-size: 20px;
+              cursor: pointer;
+
+              &:hover {
+                font-weight: bold;
+              }
+            }
           }
         }
       }

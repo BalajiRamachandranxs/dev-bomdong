@@ -11,6 +11,13 @@ const Main = () => {
   const searchData = repoData.filter(data => data.name.includes(inputData));
   const [issueData, setIssueData] = useState([]);
   const [repoName, setRepoName] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postPerPage, setPostPerPage] = useState(5);
+  const indexOfLastPost = currentPage * postPerPage;
+  const indexOfFisrtPost = indexOfLastPost - postPerPage;
+  const currentPosts = issueData.slice(indexOfFisrtPost, indexOfLastPost);
+
+  const pagination = pageNum => setCurrentPage(pageNum);
 
   const updateRepoData = data => {
     setRepoData(data);
@@ -27,14 +34,13 @@ const Main = () => {
       existingData = [];
     }
 
-    if (existingData && existingName.length < 4) {
+    if (existingData && existingName.length < 5) {
       for (let i = 0; i < data.length; i++) {
         existingData.push(data[i]);
       }
       localStorage.setItem("data", JSON.stringify(existingData));
       window.location.replace("/");
     }
-    // window.location.replace("/");
   };
 
   const saveRepoName = e => {
@@ -62,6 +68,7 @@ const Main = () => {
     handleFetch(URL, updateIssueData);
   };
 
+  // localstorage에 데이터 추가
   const getStorage = () => {
     if (localStorage.getItem("data")) {
       const data = JSON.parse(localStorage.getItem("data"));
@@ -76,6 +83,7 @@ const Main = () => {
     }
   };
 
+  // localstorage에서의 데이터 변경
   const deleteIssue = e => {
     const newData = issueData.filter(
       data => e.target.name !== data.repository_url.split("/").reverse()[0]
@@ -123,6 +131,10 @@ const Main = () => {
           <IssueList
             repoName={repoName}
             issueData={issueData}
+            currentPosts={currentPosts}
+            postPerPage={postPerPage}
+            currentPage={currentPage}
+            pagination={pagination}
             deleteRepo={deleteRepo}
           />
         </section>

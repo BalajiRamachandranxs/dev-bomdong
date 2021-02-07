@@ -12,8 +12,8 @@ export const handleFetch = async (URL, callback) => {
     method: "GET",
     headers: headers,
   })
-    .then((res) => res.json())
-    .then((data) => callback(data));
+    .then(res => res.json())
+    .then(data => callback(data));
 };
 
 export const handleIssueFetch = async (URL, callback1) => {
@@ -26,6 +26,6 @@ export const handleIssueFetch = async (URL, callback1) => {
     method: "GET",
     headers: headers,
   })
-    .then((res) => res.json())
-    .then((data) => callback1(data));
+    .then(res => res.json())
+    .then(data => callback1(data));
 };
