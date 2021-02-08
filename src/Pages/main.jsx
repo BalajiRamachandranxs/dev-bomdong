@@ -68,7 +68,6 @@ const Main = () => {
     handleFetch(URL, updateIssueData);
   };
 
-  // localstorage에 데이터 추가
   const getStorage = () => {
     if (localStorage.getItem("data")) {
       const data = JSON.parse(localStorage.getItem("data"));
@@ -83,7 +82,6 @@ const Main = () => {
     }
   };
 
-  // localstorage에서의 데이터 변경
   const deleteIssue = e => {
     const newData = issueData.filter(
       data => e.target.name !== data.repository_url.split("/").reverse()[0]
